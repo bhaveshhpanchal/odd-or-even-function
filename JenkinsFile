@@ -1,6 +1,6 @@
 node {
-    withEnv(['AZURE_SUBSCRIPTION_ID=99999999-9999-9999-9999-999999999999',
-            'AZURE_TENANT_ID=99999999-9999-9999-9999-999999999999']) {
+    withEnv(['AZURE_SUBSCRIPTION_ID=6f9867dd-4105-4c1c-b6e4-c7f9c578428c',
+            'AZURE_TENANT_ID=51237bc8-d610-4538-a1d0-89bb675a66a4']) {
         stage('Init') {
             cleanWs()
             checkout scm
@@ -11,10 +11,10 @@ node {
         }
 
         stage('Publish') {
-            def RESOURCE_GROUP = '<resource_group>' 
-            def FUNC_NAME = '<function_app>'
+            def RESOURCE_GROUP = 'test' 
+            def FUNC_NAME = 'bpanchal1'
             // login Azure
-            withCredentials([usernamePassword(credentialsId: 'azuresp', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
+            withCredentials([usernamePassword(credentialsId: 'jenkins', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
             sh '''
                 az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET -t $AZURE_TENANT_ID
                 az account set -s $AZURE_SUBSCRIPTION_ID
